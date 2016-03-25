@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'Hello world!';
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,21 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
+use \Rych\Random\Random;
 Route::group(['middleware' => ['web']], function () {
     //
+
+    Route::get('/book/create', 'BookController@getCreate');
+
+    Route::post('/book/create', 'BookController@postCreate');
+
+    Route::get('/book/{title}', function ($title){
+            return 'Show an individual book: '.$title;
+    });
+
+    Route::get('/practice', function(){
+        $random = new Random();
+        return $random->getRandomString(8);
+
+    });
 });
